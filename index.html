@@ -91,8 +91,8 @@
               <input id="search-button" type="submit" value="search" />
             </div>
           </form>
-          <h1>Afghanistan</h1>
-          <div id="degree">☀️<span id="degreeNumber">24</span></div>
+          <h1></h1>
+          <div id="degree">☀️<span id="degreeNumber"></span></div>
           <span id="span-degree">°C</span>
           <p>
             <span id="current-date"></span>, moderate rain <br />
@@ -124,15 +124,18 @@
             let temperature = Math.floor(response.data.temperature.current);
             temperatureElement.innerHTML = temperature;
           }
-
-          function hundleSubmitButton(event) {
-            event.preventDefault();
-            let searchInput = document.querySelector("#search");
-            let city = searchInput.value;
+          function searchCity(city) {
             let apiKey = "1b099ef35faf21o7cfb3ad6cete3a47b";
             let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
             axios.get(apiUrl).then(displayTemperature);
           }
+
+          function hundleSubmitButton(event) {
+            event.preventDefault();
+            let searchInput = document.querySelector("#search");
+            searchCity(searchInput.value);
+          }
+          searchCity("kabul");
 
           let button = document.querySelector("#submit-form");
           button.addEventListener("submit", hundleSubmitButton);
