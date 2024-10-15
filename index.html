@@ -43,7 +43,7 @@
     }
     #degree {
       position: absolute;
-      top: 120px;
+      top: 115px;
       right: 30px;
       font-size: 50px;
       font-family: sans-serif;
@@ -53,6 +53,13 @@
       top: 120px;
       right: 10px;
       font-weight: bolder;
+    }
+    #img {
+      position: absolute;
+      top: 111px;
+      right: 80px;
+      width: 66px;
+      height: 66px;
     }
     p {
       padding-left: 20px;
@@ -91,39 +98,70 @@
               <input id="search-button" type="submit" value="search" />
             </div>
           </form>
+
           <h1></h1>
-          <div id="degree">☀️<span id="degreeNumber"></span></div>
+          <div id="icon"></div>
+          <div id="degree">
+            <span id="degreeNumber"></span>
+          </div>
           <span id="span-degree">°C</span>
           <p>
-            <span id="current-date"></span>, moderate rain <br />
-            Humidity: <strong>87%,</strong>Wind: <strong>7.2km/h</strong> <br />
+            <span id="current-date"></span>,<span id="description"></span><br />
+            Humidity: <strong id="Humidity"></strong>,Wind:
+            <strong id="windSpeed"></strong> <br />
           </p>
+
           <p id="coder-name">
             This project was coded by
-            <a href="https://github.com/settings/profile" target="_blank"
-              >Marwa Mohmand</a
-            >
-            and is
-            <a
-              href="https://github.com/mohmand-PNG/weather-project"
-              target="_blank"
-              >on GitHub</a
-            >
-            and
-            <a href="https://ephemeral-froyo-11dc85.netlify.app" target="_blank"
-              >hosted on Netlify</a
-            >.
+            <a href="https://github.com/settings/profile">Marwa Mohmand</a> and
+            is <a href="">on GitHub</a> and <a href="">hosted on Netlify</a>.
           </p>
         </div>
+
         <script>
           function displayTemperature(response) {
-            console.log(response.data.temperature.current);
+            console.log(response);
             let h1 = document.querySelector("h1");
             h1.innerHTML = response.data.city;
             let temperatureElement = document.querySelector("#degreeNumber");
+            let descriptionElement = document.querySelector("#description");
+            let humidityElement = document.querySelector("#Humidity");
+            let windSpeedElement = document.querySelector("#windSpeed");
+            let timeElement = document.querySelector("#current-date");
+            let date = new Date(response.data.time * 1000);
+            let iconElement = document.querySelector("#icon");
+
             let temperature = Math.floor(response.data.temperature.current);
             temperatureElement.innerHTML = temperature;
+            descriptionElement.innerHTML = response.data.condition.description;
+            humidityElement.innerHTML = `${response.data.temperature.humidity}%`;
+            windSpeedElement.innerHTML = `${response.data.wind.speed}km/h`;
+            timeElement.innerHTML = formatDate(date);
+            iconElement.innerHTML = `<img src="${response.data.condition.icon_url}"id="img" />`;
           }
+
+          function formatDate(date) {
+            let minutes = date.getMinutes();
+            let hours = date.getHours();
+            let days = [
+              "Sunday",
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+            ];
+
+            let day = days[date.getDay()];
+
+            if (minutes < 10) {
+              minutes = `0${minutes}`;
+            }
+
+            return `${day} ${hours}:${minutes}`;
+          }
+
           function searchCity(city) {
             let apiKey = "1b099ef35faf21o7cfb3ad6cete3a47b";
             let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
@@ -139,23 +177,6 @@
 
           let button = document.querySelector("#submit-form");
           button.addEventListener("submit", hundleSubmitButton);
-
-          let now = new Date();
-          let days = [
-            "Sunday",
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-          ];
-          let day = days[now.getDay()];
-          let hours = now.getHours();
-          let minutes = now.getMinutes();
-
-          let currentDate = document.querySelector("#current-date");
-          currentDate.innerHTML = ` ${day} ${hours}:${minutes}`;
         </script>
       </body>
     </html>
