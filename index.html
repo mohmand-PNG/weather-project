@@ -5,76 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather-project</title>
   </head>
-  <style>
-    body {
-      background: url(https://s3.amazonaws.com/shecodesio-production/uploads/files/000/142/101/original/pexels-therato-3408744.jpg?1725450496);
-      background-repeat: no-repeat;
-      background-size: cover;
-      font-family: sans-serif;
-    }
-    #parent {
-      width: 680px;
-      display: block;
-      margin: 10% auto;
-      background-color: rgba(185, 177, 192, 0.308);
-      position: relative;
-      border-radius: 20px;
-      box-shadow: 5px 5px 10px #72f3a3bb;
-    }
-    #search {
-      background-color: #f9f7fe;
-      border: none;
-      border-radius: 6px;
-      width: 65%;
-      font-size: 16px;
-      padding: 15px 20px;
-      margin: 20px;
-    }
-    #search-button {
-      background: #72f3a3bb;
-      border-radius: 6px;
-      padding: 15px 20px;
-      border-style: none;
-      font-size: 16px;
-    }
-    h1 {
-      padding-left: 20px;
-      font-size: 40px;
-    }
-    #degree {
-      position: absolute;
-      top: 115px;
-      right: 30px;
-      font-size: 50px;
-      font-family: sans-serif;
-    }
-    #span-degree {
-      position: absolute;
-      top: 120px;
-      right: 10px;
-      font-weight: bolder;
-    }
-    #img {
-      position: absolute;
-      top: 111px;
-      right: 80px;
-      width: 66px;
-      height: 66px;
-    }
-    p {
-      padding-left: 20px;
-      font-family: sans-serif;
-    }
-    p strong {
-      color: rgb(167, 5, 5);
-    }
-    #coder-name {
-      padding: 30px;
-    }
-    a {
-      color: #08d657ef;
-    }
-  </style>
+  <link rel="stylesheet" href="index.css" />
   <body>
     <!DOCTYPE html>
     <html lang="en">
@@ -83,6 +14,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script>
         <title>html structure</title>
+        <link rel="stylesheet" href="weather.css" />
       </head>
       <body>
         <div id="parent">
@@ -111,77 +43,15 @@
             <strong id="windSpeed"></strong> <br />
           </p>
 
+          <div class="weather-forecast" id="forecast"></div>
+
           <p id="coder-name">
             This project was coded by
-            <a href="https://github.com/settings/profile" target="_blank"
-              >Marwa Mohmand</a
-            >
-            and is <a href="">on GitHub</a> and
-            <a href="">hosted on Netlify</a>.
+            <a href="https://github.com/settings/profile">Marwa Mohmand</a> and
+            is <a href="">on GitHub</a> and <a href="">hosted on Netlify</a>.
           </p>
         </div>
-
-        <script>
-          function displayTemperature(response) {
-            console.log(response);
-            let h1 = document.querySelector("h1");
-            h1.innerHTML = response.data.city;
-            let temperatureElement = document.querySelector("#degreeNumber");
-            let descriptionElement = document.querySelector("#description");
-            let humidityElement = document.querySelector("#Humidity");
-            let windSpeedElement = document.querySelector("#windSpeed");
-            let timeElement = document.querySelector("#current-date");
-            let date = new Date(response.data.time * 1000);
-            console.log(new Date(response.data.time * 1000));
-            let iconElement = document.querySelector("#icon");
-
-            let temperature = Math.floor(response.data.temperature.current);
-            temperatureElement.innerHTML = temperature;
-            descriptionElement.innerHTML = response.data.condition.description;
-            humidityElement.innerHTML = `${response.data.temperature.humidity}%`;
-            windSpeedElement.innerHTML = `${response.data.wind.speed}km/h`;
-            timeElement.innerHTML = formatDate(date);
-            iconElement.innerHTML = `<img src="${response.data.condition.icon_url}"id="img" />`;
-          }
-
-          function formatDate(date) {
-            let minutes = date.getMinutes();
-            let hours = date.getHours();
-            let days = [
-              "Sunday",
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday",
-              "Saturday",
-            ];
-
-            let day = days[date.getDay()];
-
-            if (minutes < 10) {
-              minutes = `0${minutes}`;
-            }
-
-            return `${day} ${hours}:${minutes}`;
-          }
-
-          function searchCity(city) {
-            let apiKey = "1b099ef35faf21o7cfb3ad6cete3a47b";
-            let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
-            axios.get(apiUrl).then(displayTemperature);
-          }
-
-          function hundleSubmitButton(event) {
-            event.preventDefault();
-            let searchInput = document.querySelector("#search");
-            searchCity(searchInput.value);
-          }
-          searchCity("kabul");
-
-          let button = document.querySelector("#submit-form");
-          button.addEventListener("submit", hundleSubmitButton);
-        </script>
+        <script src="index.js"></script>
       </body>
     </html>
   </body>

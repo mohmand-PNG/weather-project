@@ -1,0 +1,96 @@
+body {
+  background: url(https://s3.amazonaws.com/shecodesio-production/uploads/files/000/142/101/original/pexels-therato-3408744.jpg?1725450496);
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: sans-serif;
+}
+#parent {
+  width: 680px;
+  display: block;
+  margin: 10% auto;
+  background-color: rgba(185, 177, 192, 0.308);
+  position: relative;
+  border-radius: 20px;
+  box-shadow: 5px 5px 10px #72f3a3bb;
+}
+#search {
+  background-color: #f9f7fe;
+  border: none;
+  border-radius: 6px;
+  width: 65%;
+  font-size: 16px;
+  padding: 15px 20px;
+  margin: 20px;
+}
+#search-button {
+  background: #72f3a3bb;
+  border-radius: 6px;
+  padding: 15px 20px;
+  border-style: none;
+  font-size: 16px;
+}
+h1 {
+  padding-left: 20px;
+  font-size: 40px;
+}
+#degree {
+  position: absolute;
+  top: 115px;
+  right: 30px;
+  font-size: 50px;
+  font-family: sans-serif;
+}
+#span-degree {
+  position: absolute;
+  top: 120px;
+  right: 10px;
+  font-weight: bolder;
+}
+#img {
+  position: absolute;
+  top: 111px;
+  right: 80px;
+  width: 66px;
+  height: 66px;
+}
+p {
+  padding-left: 20px;
+  font-family: sans-serif;
+}
+p strong {
+  color: rgb(167, 5, 5);
+  font-weight: bold;
+}
+.weather-forecast {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+.weather-forecast-date {
+  text-align: center;
+  font-size: 16px;
+  line-height: 20px;
+  margin-bottom: 10px;
+  /* color: rgba(39, 33, 66); */
+}
+.weather-forecast-icon {
+  font-size: 38px;
+  text-align: center;
+}
+.weather-forecast-temperatures {
+  text-align: center;
+  color: rgb(167, 5, 5);
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+.weather-forecast-temperature {
+  padding: 0 10px;
+}
+
+#coder-name {
+  padding: 30px;
+}
+a {
+  color: #08d657ef;
+}
