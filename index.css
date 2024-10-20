@@ -73,9 +73,12 @@ p strong {
   margin-bottom: 10px;
   /* color: rgba(39, 33, 66); */
 }
-.weather-forecast-icon {
-  font-size: 38px;
-  text-align: center;
+
+.weather-forecast-img {
+  width: 88px;
+  height: 88px;
+  display: block;
+  margin: 0 auto;
 }
 .weather-forecast-temperatures {
   text-align: center;

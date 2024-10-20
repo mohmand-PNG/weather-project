@@ -1,5 +1,4 @@
 function displayTemperature(response) {
-  console.log(response);
   let h1 = document.querySelector("h1");
   h1.innerHTML = response.data.city;
   let temperatureElement = document.querySelector("#degreeNumber");
@@ -8,7 +7,6 @@ function displayTemperature(response) {
   let windSpeedElement = document.querySelector("#windSpeed");
   let timeElement = document.querySelector("#current-date");
   let date = new Date(response.data.time * 1000);
-  console.log(new Date(response.data.time * 1000));
   let iconElement = document.querySelector("#icon");
 
   let temperature = Math.floor(response.data.temperature.current);
@@ -18,6 +16,8 @@ function displayTemperature(response) {
   windSpeedElement.innerHTML = `${response.data.wind.speed}km/h`;
   timeElement.innerHTML = formatDate(date);
   iconElement.innerHTML = `<img src="${response.data.condition.icon_url}"id="img" />`;
+
+  getForecast(response.data.city);
 }
 
 function formatDate(date) {
@@ -53,24 +53,41 @@ function hundleSubmitButton(event) {
   let searchInput = document.querySelector("#search");
   searchCity(searchInput.value);
 }
-searchCity("kabul");
 
-function displayForcast() {
-  let days = ["Tue", "Wed", "Thu", "Fri", "Sat"];
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[date.getDay()];
+}
+function getForecast(city) {
+  let apiKey = `1b099ef35faf21o7cfb3ad6cete3a47b`;
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForcast);
+}
+
+function displayForcast(response) {
   let forecastHtml = "";
-  days.forEach(function (day) {
-    forecastHtml =
-      forecastHtml +
-      `<div class="weather-forecast-day">
-            <div class="weather-forecast-date">${day}</div>
-            <div class="weather-forecast-icon">☀️</div>
+
+  response.data.daily.forEach(function (day, index) {
+    if (index < 5) {
+      forecastHtml =
+        forecastHtml +
+        `<div class="weather-forecast-day">
+            <div class="weather-forecast-date">${formatDay(day.time)}</div>
+            <img src="${
+              day.condition.icon_url
+            }"  class="weather-forecast-img" />
+
             <div class="weather-forecast-temperatures">
               <div class="weather-forecast-temperature">
-                <strong>15° </strong>
+                <strong>${Math.round(day.temperature.maximum)}° </strong>
               </div>
-              <div class="weather-forecast-temperature">18°</div>
+              <div class="weather-forecast-temperature">${Math.round(
+                day.temperature.minimum
+              )}°</div>
             </div>
           </div>`;
+    }
   });
   let forecastElement = document.querySelector("#forecast");
 
@@ -78,4 +95,4 @@ function displayForcast() {
 }
 let button = document.querySelector("#submit-form");
 button.addEventListener("submit", hundleSubmitButton);
-displayForcast();
+searchCity("kabul");
