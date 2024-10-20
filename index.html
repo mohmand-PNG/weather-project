@@ -132,6 +132,7 @@
             let windSpeedElement = document.querySelector("#windSpeed");
             let timeElement = document.querySelector("#current-date");
             let date = new Date(response.data.time * 1000);
+            console.log(new Date(response.data.time * 1000));
             let iconElement = document.querySelector("#icon");
 
             let temperature = Math.floor(response.data.temperature.current);
